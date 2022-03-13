@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<form th:method="post" th:object="${course}" th:action="@{/registrationCourse}">
+    <label for="name">Name</label>
+    <input type="text" id="name" th:field="*{name}" th:value="*{name}"/>
+    <span th:if="${#fields.hasErrors('name')}" th:error="*{name}"></span>
+    <br/>
+    <label for="numberOfHours">Hours</label>
+    <input type="text" id="numberOfHOurs" th:field="*{numberOfHOurs}" th:value="*{numberOfHOurs}"/>
+    <span th:if="${#fields.hasErrors('numberOfHOurs')}" th:error="*{numberOfHOurs}"></span>
+    <br/>
+    <input type="submit" id="Save">
+    <br/><br/><br/>
+
+</form>
+
+<body>
+<label>Welcome to application form</label>
+<br/><br/>
+<table border="1">
+    <thead>
+    <td>Code</td>
+    <td>Name</td>
+    <td>Hours</td>
+    <td>Action</td>
+    </thead>
+    <tbody>
+    <tr th:each="course: ${list}">
+        <td th:text="${course.code}"></td>
+        <td th:text="${course.name}"></td>
+        <td th:text="${course.numberOfHOurs}"></td>
+        <td>
+            <a href="#">Edit</a>
+            <a th:href="@{/courseDelete?id={id}  (id=${course.code}) }">Delete</a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

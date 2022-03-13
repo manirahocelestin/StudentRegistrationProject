@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title></title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+
+<body class="container">
+<div class="row">
+    <div class="col-sm-8 mt-4">
+        <h2>Notifications</h2>
+    </div>
+    <div class="col-sm-4 mt-4">
+        <a class="btn btn-outline-info btn-block pull-right">Logout</a>
+
+    </div>
+
+</div>
+
+<img th:src="@{/images/images1.jpg}"/>
+
+<form th:method="post" th:object="${student}" th:action="@{/studentRegistration}">
+    <input type="hidden" th:field="*{registrationNumber}" th:value="*{registrationNumber}">
+    <label for="names">Names</label>
+    <input type="text" id="names" th:field="*{names}" th:value="*{names}"/>
+    <span th:if="${#fields.hasErrors('names')}" th:error="*{names}"></span>
+
+    <br/>
+    <label for="dob">DOB</label>
+    <input type="text" id="dob" th:field="*{dob}" th:value="*{dob}"/>
+
+    <span th:if="${#fields.hasErrors('dob')}" th:error="*{dob}"></span>
+
+    <br/>
+    <label for="gender">Gender</label>
+    <select id="gender" th:field="*{gender}" th:value="*{gender}">
+        <option th:each="genderItem :${genders}" th:text="${genderItem}" th:value="${genderItem}"></option>
+    </select>
+    <span th:if="${#fields.hasErrors('gender')}" th:error="*{gender}"></span>
+    <br/>
+    <label for="address">Address</label>
+    <input type="text" id="address" th:field="*{address}"/>
+
+    <span th:if="${#fields.hasErrors('address')}" th:error="*{address}"></span>
+    <br/>
+    <input type="submit" value="Save"/>
+</form>
+<br/>
+<br/>
+<label> welcome to registration form</label>
+<br/>
+<br/>
+<body>
+<table border="1">
+
+
+    <thead>
+    <td>Registration Number</td>
+    <td>Name</td>
+    <td>DOB</td>
+    <td>Gender</td>
+    <td>Address</td>
+    <td>Action</td>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${studentList}">
+        <td th:text="${student.registrationNumber}"></td>
+        <td th:text="${student.names}"></td>
+        <td th:text="${student.dob}"></td>
+        <td th:text="${student.gender}"></td>
+        <td th:text="${student.address}"></td>
+
+        <td>
+            <a th:href="@{/updateStudent?id={id} (id=${student.registrationNumber})}">Edit</a>
+            <a th:href="@{/deletedStudent?id={id} (id=${student.registrationNumber})}">Delete</a>
+            <a th:href="@{/studentCourse?studentId={id} (id=${student.registrationNumber})}">courses</a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

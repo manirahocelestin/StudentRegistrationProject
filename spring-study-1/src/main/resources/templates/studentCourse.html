@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+
+<body>
+
+<img th:src="@{/images/images1.jpg}"/>
+
+<form th:method="post"  th:action="@{/studentCourseReg}">
+    <input type="hidden" name="studentId" th:value="${studentId}">
+    <label for="course">Course</label>
+    <select id="course" name="course">
+        <option th:each="item :${courses}" th:text="${item.name}" th:value="${item.code}"></option>
+    </select>
+<br/>
+    <input type="submit" value="Save"/>
+</form>
+<br/>
+<br/>
+<label> Student Courses</label>
+<br/>
+<br/>
+<body>
+    <table border="1">
+
+
+
+        <thead>
+            <td>Registration Number</td>
+            <td>Name</td>
+            <td>Course Code</td>
+            <td>Course Name</td>
+            <td>Number of Hourse</td>
+        </thead>
+        <tbody>
+            <tr th:each="studentcourse : ${studentCourse}">
+                <td th:text="${studentcourse.student.registrationNumber}"></td>
+                <td th:text="${studentcourse.student.names}"></td>
+                <td th:text="${studentcourse.course.code}"></td>
+                <td th:text="${studentcourse.course.name}"></td>
+                <td th:text="${studentcourse.course.numberOfHOurs}"></td>
+
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
